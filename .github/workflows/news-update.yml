@@ -1,0 +1,48 @@
+name: 每日 BBC 新聞自動更新
+
+# 觸發條件：每天定時 + 手動觸發
+on:
+  schedule:
+    - cron: '0 16 * * *'  # UTC 16:00 = 台灣 00:00（每天凌晨）
+  workflow_dispatch:  # 允許手動在 Actions 頁面觸發
+
+# 工作流程定義
+jobs:
+  update-news:
+    runs-on: ubuntu-latest  # 使用 GitHub 提供的 Linux 環境
+
+    steps:
+      # Step 1: 拉取儲存庫程式碼（包含 index.html）
+      - name: 拉取程式碼
+        uses: actions/checkout@v4  # 官方 Action：checkout 最新分支
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}  # 使用 GitHub Token 允許 push
+          ref: main  # 假設主分支是 main（若為 master 則改為 master）
+
+      # Step 2: 設定 Python 環境
+      - name: 設定 Python 3.11
+        uses: actions/setup-python@v5  # 官方 Action：安裝 Python
+        with:
+          python-version: '3.11'  # 指定版本
+
+      # Step 3: 執行 Python 腳本（爬取並更新）
+      - name: 執行新聞爬取腳本
+        run: |
+          # 建立 scripts 資料夾並放入腳本（或預先 commit 腳本）
+          mkdir -p scripts
+          # 注意：在實際使用時，請先 commit fetch_news.py 到 scripts/
+          python scripts/fetch_news.py  # 執行腳本
+
+      # Step 4: 檢查變更並 commit/push
+      - name: 提交變更到 GitHub Pages
+        run: |
+          git config --local user.email "actions@github.com"  # 設定 Git 作者
+          git config --local user.name "GitHub Actions Bot"   # 設定 Git 名稱
+          git add index.html  # 只添加變更的 index.html
+          git diff --staged --quiet || git commit -m "自動更新 BBC 新聞 - $(date +'%Y-%m-%d %H:%M:%S')"  # 若有變更才 commit
+          git push  # 推送變更，讓 GitHub Pages 自動更新網站
+
+      # Step 5: 錯誤處理（選用）：若失敗則發通知（可擴展）
+      - name: 通知失敗（選用）
+        if: failure()  # 只在失敗時執行
+        run: echo "新聞更新失敗！請檢查 Actions log。"
