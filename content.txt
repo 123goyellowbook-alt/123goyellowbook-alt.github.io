@@ -1,2 +1,9 @@
+title: Circle Unveils On-Chain FX Engine to Expand Stablecoin Trading on Arc Network
+images: 2.jpg,2-1.jpg
+fontSize: 16px
+date: 2025-11-13
+content: <p>無法生成文章內容: Circle Unveils On-Chain FX Engine to Expand Stablecoin Trading on Arc Network</p><p>原始連結：<a href="https://decrypt.co/348452/circle-unveils-on-chain-fx-engine-to-expand-stablecoin-trading-on-arc-network">點此查看</a></p>
+
+---
 
 ---
