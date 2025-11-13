@@ -1,3 +1,10 @@
+title: Circle enters world’s largest financial market with onchain FX engine
+images: 1.jpg,1-1.jpg
+fontSize: 16px
+date: 2025-11-13
+content: <p>無法生成文章內容: Circle enters world’s largest financial market with onchain FX engine</p><p>原始連結：<a href="https://cointelegraph.com/news/circle-largest-financial-market-onchain-fx-engine?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound">點此查看</a></p>
+
+---
 title: 比特幣價格觀察：短期上漲勢頭強勁，穩守$119K大關
 images: 19.jpg,19-1.jpg
 fontSize:16px
